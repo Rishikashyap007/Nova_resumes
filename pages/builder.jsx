@@ -179,8 +179,8 @@ export default function Builder({ onClose }) {
   };
   const getLinkClassName = (path) => {
     return router.pathname === path
-      ? "flex items-center p-2 bg-violet-900 border-b-2 rounded font-semibold text-white"
-      : "flex items-center p-2 hover:bg-violet-900  border-b-2 rounded font-semibold  ";
+      ? "flex items-center p-2 bg-slate-900 border-b-2 rounded font-semibold text-white"
+      : "flex items-center p-2 hover:bg-indigo-100  border-b-2 rounded font-semibold  ";
   };
 
   const handleFinish = async () => {
@@ -288,7 +288,7 @@ export default function Builder({ onClose }) {
       {/* Toggle button for smaller screens */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden p-2 text-white bg-blue-900 fixed top-4 left-4 z-50 rounded"
+        className="md:hidden p-2 text-black bg-indigo-100 fixed top-4 left-4 z-50 rounded"
       >
         ☰
       </button>
@@ -303,7 +303,7 @@ export default function Builder({ onClose }) {
           <li>
             <Link
               href=""
-              className="flex items-center p-2 bg-blue-900 border-b-2 border-black font-semibold text-white"
+              className="flex items-center p-2 bg-indigo-100 border-b-2 border-slate-900 font-semibold text-black"
               onClick={() => {
                 onClose();
                 toggleSidebar();
@@ -437,7 +437,7 @@ export default function Builder({ onClose }) {
           <li>
             <Link
               href="/"
-              className="flex items-center p-2 hover:bg-violet-900 border-b-2 rounded font-semibold"
+              className="flex items-center p-2 hover:bg-indigo-100 border-b-2 rounded font-semibold"
               onClick={() => {
                 handleLogout();
                 toggleSidebar();
@@ -488,7 +488,7 @@ export default function Builder({ onClose }) {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-lg px-10 font-bold bg-yellow-500 w-full lg:w-40 text-black p-1"
+                className="rounded-lg px-10 font-bold bg-blue-500 w-full lg:w-40 text-white p-1"
               >
                 {currentSection === sections.length - 1 ? "Finish" : "Next"}
               </button>

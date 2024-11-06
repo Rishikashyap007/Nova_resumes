@@ -4,8 +4,11 @@
 
 @layer base {
     
-    body {
+    /* body {
         @apply font-[sans-serif];
+    } */
+    body {
+        @apply font-sans;
     }
 
     ::-webkit-scrollbar {

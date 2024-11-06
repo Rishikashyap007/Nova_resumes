@@ -38,15 +38,16 @@ const Footer = () => {
     return (
       <>
       <ToastContainer />
-        <footer className="bg-black text-white py-8" id='footerbg'>
+        <footer className="bg-stone-50 text-black py-8" id='footerbg'>
             <div className="container mx-auto flex flex-col gap-7 justify-between px-6">
               <div className='flex flex-wrap justify-between px-2 md:px-[65px]'>
                 <div className="md:w-auto mb-6 md:mb-0">
-                    <Image src={logo} className='h-14 w-full' />
+                <Image src="https://novajobs.us/static/media/NovaUS.649f79957e5090a75022.png" alt="logo"  width={150} height={50} />
+                    {/* <Image src={logo} className='h-14 w-full' /> */}
                     <p className='text-lg text-bold px-5'>Building Careers of Tomorrow</p>
                 </div>
                 <div className="w-full md:w-auto mb-6 md:mb-0">
-                    <h2 className="text-lg font-semibold text-white">Get Our Weekly</h2>
+                    <h2 className="text-lg font-semibold text-black">Get Our Weekly</h2>
                     <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
                         <input 
                           type="email" 
@@ -54,9 +55,9 @@ const Footer = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}  // Update the email state
                           required 
-                          className="p-2 rounded text-black" 
+                          className="p-2 rounded text-black border-slate-800 border-2" 
                         />
-                        <button type="submit" className="md:px-4 md:py-1 p-1 rounded-full bg-white text-black hover:bg-orange-500">
+                        <button type="submit" className="md:px-4 md:py-1 p-1 rounded-full bg-indigo-100 text-black hover:bg-slate-800 hover:text-white">
                           Subscribe
                         </button>
                     </form>
@@ -66,7 +67,7 @@ const Footer = () => {
               <br />
               <div className='flex flex-wrap justify-around'>
                 <div className="w-full md:w-auto mb-6 md:mb-0" id='footer'>
-                    <h2 className="text-lg font-bold text-white">Resume Intellect</h2>
+                    <h2 className="text-lg font-bold text-white">Novajobs.US</h2>
                     <ul>
                         <li><Link href="/footerr/Aboutus"><span>About Us</span></Link></li>
                         <li><Link href="/footerr/Careers"><span>Careers</span></Link></li>
@@ -103,7 +104,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="container text-base md:mx-auto text-center border-t border-white pt-6 mt-6">
-                <p className="text-white text-right">&copy; Copyright By ResumeIntellect.ca All Rights Reserved</p>
+                <p className="text-white text-right">&copy; Copyright By Novajobs.US All Rights Reserved</p>
             </div>
         </footer>
       </>

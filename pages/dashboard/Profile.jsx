@@ -30,19 +30,19 @@
 //     city_id: '',
 //     uploadPhoto: null
 //   });
-  
+
 
 //   useEffect(() => {
 //     const fetchData = async () => {
 
 
-      
+
 //       try {
 //         const token = localStorage.getItem("token");
 //         const userProfileResponse = await axios.get('https://api.resumeintellect.com/api/user/user-profile', {
 //           headers: { Authorization: token },
 //         });
-        
+
 //         if (userProfileResponse.data.status === 'success') {
 //           const userData = userProfileResponse.data.data;
 //           setFormData(prevData => ({
@@ -149,7 +149,7 @@
 //    <Navbar/>
 //     <div className="bg-indigo-900 p-4">
 //       <div className="max-w-4xl mx-auto">
-//         <div className="rounded-lg shadow-lg p-6 bg-indigo-800 flex flex-col md:flex-row justify-between items-center md:h-44">
+//         <div className="rounded-lg shadow-lg p-6 bg-slate-900 flex flex-col md:flex-row justify-between items-center md:h-44">
 //           <div className="space-y-4 mb-6 md:mb-0 md:mr-6 md:pr-6 w-full">
 //             <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
 //               <img
@@ -166,7 +166,7 @@
 //               <div>
 //                 <p className="text-white">📧 {formData.email || "Please update your [Email]"}</p>
 //                 <p className="text-white">📱 {formData.phone || "Please update your [Phone]"}</p>
-             
+
 //               </div>
 //             </div>
 //           </div>
@@ -260,7 +260,7 @@ const ProfilePage = () => {
   const [modalResumeName, setModalResumeName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-
+  const [uploadedFileName, setUploadedFileName] = useState("");
   const [formData, setFormData] = useState({
     photo: '',
     first_name: '',
@@ -284,7 +284,7 @@ const ProfilePage = () => {
         const userProfileResponse = await axios.get('https://api.resumeintellect.com/api/user/user-profile', {
           headers: { Authorization: token },
         });
-        
+
         if (userProfileResponse.data.status === 'success') {
           const userData = userProfileResponse.data.data;
           setFormData(prevData => ({
@@ -393,6 +393,7 @@ const ProfilePage = () => {
     }
 
     setSelectedFile(file);
+    setUploadedFileName(file.name);
     handleFileUpload(file);
   };
 
@@ -460,12 +461,14 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Navbar/>
-      <div className="bg-indigo-900 p-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-lg shadow-lg p-6 bg-indigo-800 flex flex-col md:flex-row justify-between items-center md:h-44">
-            <div className="space-y-4 mb-6 md:mb-0 md:mr-6 md:pr-6 w-full">
-              <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
+      <Navbar />
+      <div className="bg-indigo-100 p-4 ">
+        <div className=" mx-auto">
+          <div className="rounded-lg shadow-lg p-6 opacity-100 bg-slate-900 flex flex-col md:flex-row justify-between items-center md:h-44">
+
+            <div className="flex-1  w-full flex flex-col md:flex-row">
+
+              <div className="flex flex-col md:flex-row md:items-center md:space-x-4 p-5 ">
                 <img
                   src={`https://api.resumeintellect.com/${formData.photo}` || "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"}
                   alt="Please Upload Profile Photo"
@@ -476,19 +479,20 @@ const ProfilePage = () => {
                   <p>{formData.professional_title || "Please update your Profile Title!"}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:ms-20">
+              <div className="hidden md:block border-[0.5px] border-gray-500 h-40 md:space-x-4"></div>
+              <div className="  md:grid-cols-2 gap-4 md:ms-20 md:space-x-4 m-auto md:items-center">
                 <div>
                   <p className="text-white">📧 {formData.email || "Please update your [Email]"}</p>
                   <p className="text-white">📱 {formData.phone || "Please update your [Phone]"}</p>
                 </div>
               </div>
             </div>
-            <div className="hidden md:block border-[0.5px] border-gray-500 h-40"></div>
-            <div className="flex flex-col justify-start items-start gap-3 mx-1 w-full md:w-auto">
+            <div className="hidden md:block border-[0.5px] border-gray-500 h-40 md:space-x-4"></div>
+            <div className="flex flex-1 flex-col justify-center items-center gap-3 mx-1 w-full md:w-auto  md:flex-row">
               {resumes.length > 0 && (
-                <div key={resumes[0].id} className="border-t border-gray-700 w-full">
+                <div key={resumes[0].id} className=" w-full md:w-auto">
                   <button
-                    className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 w-full md:w-auto"
+                    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 w-full md:w-auto"
                     onClick={() => handleGetScore(resumes[0])}
                     disabled={isLoading}
                   >
@@ -514,7 +518,7 @@ const ProfilePage = () => {
                 />
                 <label
                   htmlFor="fileInput"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 cursor-pointer w-full md:w-auto text-center"
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 cursor-pointer w-full md:w-auto text-center"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">
@@ -528,9 +532,9 @@ const ProfilePage = () => {
                     'Upload Resume'
                   )}
                 </label>
-                {selectedFile && (
+                {uploadedFileName && (
                   <span className="text-white ml-2 truncate max-w-xs">
-                    {selectedFile.name}
+                    {uploadedFileName}
                   </span>
                 )}
               </div>

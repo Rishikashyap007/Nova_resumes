@@ -302,7 +302,7 @@ function Home_third() {
           </div>
         </div>
       </div>
-      <Home_fourth />
+      {/* <Home_fourth /> */}
     </>
   );
 }

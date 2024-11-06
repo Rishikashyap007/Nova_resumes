@@ -14,7 +14,7 @@ const ResumeBuilder = () => {
     <Home_first/>
     <FAQ/>
    {/* <Loder/> */}
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 };

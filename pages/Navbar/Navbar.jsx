@@ -60,30 +60,32 @@ const Navbar = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <nav className="bg-black border-b border-gray-200">
+    <nav className="bg-white border-b border-gray-200">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
-              <Image src={logo} alt="logo" className="h-10 w-40" />
+              {/* <Image src={logo} alt="logo" className="h-10 w-40" /> */}
+              <Image src="https://novajobs.us/static/media/NovaUS.649f79957e5090a75022.png" alt="logo"  width={150} height={50} />
             </Link>
           </div>
           <div className="hidden md:flex justify-center items-center space-x-4">
-            <Link href="/navbarcontent" className="text-white px-3 py-2 rounded-md text-lg font-semibold">AI Resume Builder</Link>
-            <Link href="https://blog.resumeintellect.com/" className="text-white px-3 py-2 rounded-md text-lg font-semibold">Resources</Link>
-            <Link href="https://blog.resumeintellect.com/" className="text-white px-3 py-2 rounded-md text-lg font-semibold">About Us</Link>
-            {/* <Link href="/adminlogin" className="text-white px-3 py-2 rounded-md text-lg font-semibold">
+
+            <Link href="/navbarcontent" className="text-black px-3 py-2 rounded-md text-lg font-semibold hover:bg-slate-900 hover:text-white ">AI Resume Builder</Link>
+            <Link href="/" className="text-black px-3 py-2 rounded-md text-lg font-semibold hover:bg-slate-900 hover:text-white">Resources</Link>
+            <Link href="/" className="text-black px-3 py-2 rounded-md text-lg font-semibold hover:bg-slate-900 hover:text-white">About Us</Link>
+            {/* <Link href="/adminlogin" className="text-black px-3 py-2 rounded-md text-lg font-semibold">
               <span className="mr-2">🛡️</span>
               <span>Admin</span>
             </Link> */}
-            <a href="#phone" className="text-white px-3 py-2 rounded-md text-lg font-semibold">📞  Contact us  </a>
+            <a href="#phone" className="text-black px-3 py-2 rounded-md text-lg font-semibold hover:bg-slate-900 hover:text-white">📞  Contact us  </a>
           </div>
           <div className="hidden md:flex items-center gap-4">
             {isLoggedIn ? (
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="flex items-center bg-white text-white px-4 py-2 text-md font-semibold border-2 rounded-xl"
+                  className="flex items-center bg-black text-black px-4 py-2 text-md font-semibold border-2 rounded-xl"
                 >
                   <img 
                     src="https://img.freepik.com/premium-vector/businessman-avatar-illustration-cartoon-user-portrait-user-profile-icon_118339-4382.jpg" 
@@ -92,24 +94,24 @@ const Navbar = () => {
                   />
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-black">
+                  <div className="absolute right-0 mt-2 w-48 bg-slate-600 shadow-lg rounded-md text-white">
                     <Link 
                       href="/"
-                      className="block px-4 py-2 hover:bg-gray-200"
+                      className="block px-4 py-2 hover:bg-gray-200 hover:text-black"
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       Home 
                     </Link>
                     <Link 
                       href="/dashboard/page"
-                      className="block px-4 py-2 hover:bg-gray-200"
+                      className="block px-4 py-2 hover:bg-gray-200 hover:text-black"
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       Profile
                     </Link>
                     <button
                       onClick={() => { handleLogout(); setIsDropdownOpen(false); }}
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-200 hover:text-black"
                     >
                       Logout
                     </button>
@@ -118,15 +120,15 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <Link href="/login2" className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl">Log in</Link>
-                <Link href="/signup" className="text-white px-4 py-2 text-md font-semibold border-2 rounded-xl">Sign up</Link>
+                <Link href="/login2" className="text-black px-4 py-2 text-md font-semibold border-2 rounded-xl">Log in</Link>
+                <Link href="/signup" className="text-black px-4 py-2 text-md font-semibold border-2 rounded-xl">Sign up</Link>
               </>
             )}
           </div>
           <div className="md:hidden flex items-center">
             <button
               onClick={handleMenuClick}
-              className="text-white hover:text-gray-700 focus:outline-none px-3 py-2 rounded-md text-sm font-medium"
+              className="text-black hover:text-gray-700 focus:outline-none px-3 py-2 rounded-md text-sm font-medium"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -137,17 +139,17 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>AI Resume Builder</Link>
-              <Link href="/" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Resources</Link>
-              <Link href="/" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>About Us</Link>
-              <Link href="/" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Blog</Link>
+              <Link href="/" className="text-black block px-3 py-2 rounded-md text-base font-semibold " onClick={handleLinkClick}>AI Resume Builder</Link>
+              <Link href="/" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Resources</Link>
+              <Link href="/" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>About Us</Link>
+              <Link href="/" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Blog</Link>
 
               {isLoggedIn ? (
-                <Link href="/" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={() => { handleLogout(); handleLinkClick(); }}>Logout</Link>
+                <Link href="/" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={() => { handleLogout(); handleLinkClick(); }}>Logout</Link>
               ) : (
                 <>
-                  <Link href="/login2" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Log in</Link>
-                  <Link href="/signup" className="text-white block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Sign up</Link>
+                  <Link href="/login2" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Log in</Link>
+                  <Link href="/signup" className="text-black block px-3 py-2 rounded-md text-base font-semibold" onClick={handleLinkClick}>Sign up</Link>
                 </>
               )}
             </div>
