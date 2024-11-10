@@ -167,7 +167,7 @@ const Template1 = () => {
                 {icons.map((icon, index) => {
                   if (icon.name === socialMedia.socialMedia.toLowerCase()) {
                     return (
-                      <span className="anita-icon" key={index}>
+                      <span className="pdf-icon" key={index}>
                         {icon.icon}
                       </span>
                     );

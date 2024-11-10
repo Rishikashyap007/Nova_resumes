@@ -9,7 +9,7 @@ const ContactInfo = ({ mainclass, linkclass, teldata, emaildata, addressdata, te
           style={{ lineHeight: 1 }}
           href={`tel:${teldata}`}
         >
-          <span className="anita-icon">{telicon}</span>
+          <span className="pdf-icon">{telicon}</span>
           <span>{teldata}</span>
         </a>
         <a
@@ -18,7 +18,7 @@ const ContactInfo = ({ mainclass, linkclass, teldata, emaildata, addressdata, te
           style={{}}
           href={`mailto:${emaildata}`}
         >
-          <span className="anita-icon">{emailicon}</span>
+          <span className="pdf-icon">{emailicon}</span>
           <span>{emaildata}</span>
         </a>
         <address
@@ -26,7 +26,7 @@ const ContactInfo = ({ mainclass, linkclass, teldata, emaildata, addressdata, te
           style={{}}
           className={linkclass + " not-italic"}
         >
-          <span className="anita-icon">{addressicon}</span>
+          <span className="pdf-icon">{addressicon}</span>
           <span>{addressdata}</span>
         </address>
       </div>

@@ -280,9 +280,9 @@ export default function Builder({ onClose }) {
   const getTargetElement = () => {
     const targetElement = document.getElementById("preview-section"); //("content-pdf");
 
-    // Apply the additional classes to all <h2> tags and elements with the "anita-icon" class
-    const h2Elements = targetElement.querySelectorAll("h2");
-    const iconElements = targetElement.querySelectorAll(".anita-icon");
+    // Apply the additional classes to all <h2> tags and elements with the "pdf-icon" class
+    const h2Elements = targetElement.querySelectorAll(".border-b-2");
+    const iconElements = targetElement.querySelectorAll(".pdf-icon");
     const mainHeadingElements = targetElement.querySelectorAll(".main-heading");
     // Store the original classes so they can be restored later
     h2Elements.forEach((h2) => h2.classList.add("pb-2"));
@@ -338,8 +338,8 @@ export default function Builder({ onClose }) {
     await generatePDF(() => targetElement, options);
 
     // Revert the modifications by removing the added classes
-    const h2Elements = targetElement.querySelectorAll("h2");
-    const iconElements = targetElement.querySelectorAll(".anita-icon");
+    const h2Elements = targetElement.querySelectorAll(".border-b-2");
+    const iconElements = targetElement.querySelectorAll(".pdf-icon");
     const mainHeadingElements = targetElement.querySelectorAll(".main-heading");
 
     h2Elements.forEach((h2) => h2.classList.remove("pb-2"));
@@ -555,14 +555,7 @@ export default function Builder({ onClose }) {
               </div>
             </div>
             <div>
-              <div className="lg:flex justify-between bg-gray-200 p-2 px-5">
-                {/* <button
-                type="button"
-                onClick={toggleSidebar}
-                className="p-2 bg-blue-900 text-white rounded-lg"
-              >
-                {isSidebarOpen ? "☰" : "☰"}
-              </button> */}
+              <div className="flex justify-center">
                 <button
                   type="button"
                   onClick={handlePrevious}
@@ -572,11 +565,57 @@ export default function Builder({ onClose }) {
                   Previous
                 </button>
 
+                <aside
+                  className={`h-full bg-gray-100 p-4  transform ${
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                  } transition-transform duration-300 ease-in-out`}
+                >
+                  <ul className="flex space-x-2 text-center">
+                    {sections.map((section, index) => (
+                      <li
+                        key={index}
+                        className={`px-4 py-2 cursor-pointer ${
+                          currentSection === index
+                            ? "rounded-lg border-2 border-blue-800 font-bold bg-blue-950 text-white px-10 py-1"
+                            : "rounded-lg border-2 bg-white border-blue-800  text-blue-800 px-10 py-1"
+                        }`}
+                        onClick={() => handleSectionClick(index)}
+                      >
+                        {section.label}
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="rounded-lg px-10 font-bold bg-blue-500 w-full lg:w-40 text-white p-1"
+                >
+                  {currentSection === sections.length - 1 ? "Finish" : "Next"}
+                </button>
+              </div>
+              <div className="lg:flex justify-center bg-gray-200 p-2 px-5">
+                {/* <button
+                type="button"
+                onClick={toggleSidebar}
+                className="p-2 bg-blue-900 text-white rounded-lg"
+              >
+                {isSidebarOpen ? "☰" : "☰"}
+              </button> */}
+                {/* <button
+                  type="button"
+                  onClick={handlePrevious}
+                  disabled={currentSection === 0}
+                  className="rounded-lg border-2 bg-blue-950  w-full lg:w-40 text-white px-10 py-1"
+                >
+                  Previous
+                </button> */}
+
                 <div className="lg:flex gap- content-center  justify-between bg-gray-200 p-1 px-5 lg:block hidden">
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className="rounded-lg border-2 border-blue-800 px-8 p- font-bold text-blue-800 lg:block hidden"
+                    className="rounded-lg border-2 border-blue-800 px-8 py-1 font-bold text-blue-800 lg:block hidden"
                   >
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
@@ -598,13 +637,13 @@ export default function Builder({ onClose }) {
                   />
                 </div>
 
-                <button
+                {/* <button
                   type="button"
                   onClick={handleNext}
                   className="rounded-lg px-10 font-bold bg-blue-500 w-full lg:w-40 text-white p-1"
                 >
                   {currentSection === sections.length - 1 ? "Finish" : "Next"}
-                </button>
+                </button> */}
               </div>
 
               <div

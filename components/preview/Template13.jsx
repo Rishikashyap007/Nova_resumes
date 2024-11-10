@@ -89,7 +89,7 @@ const Template13 = () => {
                   if (icon.name === socialMedia.socialMedia.toLowerCase()) {
                     return (
                       <span
-                        className="inline-flex items-center mr-2 anita-icon"
+                        className="inline-flex items-center mr-2 pdf-icon"
                         key={index}
                       >
                         {icon.icon}

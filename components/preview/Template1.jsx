@@ -225,7 +225,7 @@ const Template1 = () => {
                               socialMedia.socialMedia.toLowerCase()
                             ) {
                               return (
-                                <span className="anita-icon" key={index}>
+                                <span className="pdf-icon" key={index}>
                                   {icon.icon}
                                 </span>
                               );
