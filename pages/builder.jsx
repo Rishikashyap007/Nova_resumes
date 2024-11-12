@@ -161,10 +161,7 @@ export default function Builder({ onClose }) {
   };
 
   const handleSectionClick = (index) => {
-    if (!isFinished) {
-      setCurrentSection(index);
-    }
-    // setCurrentSection(index);
+    setCurrentSection(index);
   };
 
   const handleFontChange = (e) => {
@@ -759,11 +756,9 @@ export default function Builder({ onClose }) {
 
             <div className="overflow-y-auto md:h-screen mx-auto">
               {/* <PDFExport ref={pdfExportComponent} {...pdfExportOptions}> */}
-              {isFinished && (
-                <div className="bg-white" style={{ fontFamily: selectedFont }}>
-                  <Preview selectedTemplate={selectedTemplate} />
-                </div>
-              )}
+              <div className="bg-white" style={{ fontFamily: selectedFont }}>
+                <Preview selectedTemplate={selectedTemplate} />
+              </div>
               {/* </PDFExport> */}
             </div>
           </div>
