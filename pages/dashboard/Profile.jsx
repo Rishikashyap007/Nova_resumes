@@ -465,25 +465,36 @@ const ProfilePage = () => {
       <div className="bg-indigo-100 p-4 ">
         <div className=" mx-auto">
           <div className="rounded-lg shadow-lg p-6 opacity-100 bg-slate-900 flex flex-col md:flex-row justify-between items-center md:h-44">
-
             <div className="flex-1  w-full flex flex-col md:flex-row">
-
               <div className="flex flex-col md:flex-row md:items-center md:space-x-4 p-5 ">
                 <img
-                  src={`https://api.resumeintellect.com/${formData.photo}` || "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"}
+                  src={
+                    `https://api.resumeintellect.com/${formData.photo}` ||
+                    "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"
+                  }
                   alt="Please Upload Profile Photo"
                   className="w-20 h-20 rounded-full mb-4 md:mb-0"
                 />
                 <div className="text-white">
-                  <h2 className="text-xl font-semibold">{formData.first_name || "Please update your [Name]"} {formData.last_name || "!"}</h2>
-                  <p>{formData.professional_title || "Please update your Profile Title!"}</p>
+                  <h2 className="text-xl font-semibold">
+                    {formData.first_name || "Please update your [Name]"}{" "}
+                    {formData.last_name || "!"}
+                  </h2>
+                  <p>
+                    {formData.professional_title ||
+                      "Please update your Profile Title!"}
+                  </p>
                 </div>
               </div>
               <div className="hidden md:block border-[0.5px] border-gray-500 h-40 md:space-x-4"></div>
               <div className="  md:grid-cols-2 gap-4 md:ms-20 md:space-x-4 m-auto md:items-center">
                 <div>
-                  <p className="text-white">📧 {formData.email || "Please update your [Email]"}</p>
-                  <p className="text-white">📱 {formData.phone || "Please update your [Phone]"}</p>
+                  <p className="text-white">
+                    📧 {formData.email || "Please update your [Email]"}
+                  </p>
+                  <p className="text-white">
+                    📱 {formData.phone || "Please update your [Phone]"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -498,13 +509,33 @@ const ProfilePage = () => {
                   >
                     {isLoading ? (
                       <span className="flex items-center justify-center">
-                        <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        <svg
+                          className="animate-spin h-5 w-5 mr-3 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          ></path>
                         </svg>
                         Loading...
                       </span>
-                    ) : scores[resumes[0].id] !== undefined ? scores[resumes[0].id] : 'Resume Score'}
+                    ) : scores[resumes[0].id] !== undefined ? (
+                      scores[resumes[0].id]
+                    ) : (
+                      "Resume Score"
+                    )}
                   </button>
                 </div>
               )}
@@ -522,14 +553,30 @@ const ProfilePage = () => {
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                      <svg
+                        className="animate-spin h-5 w-5 mr-3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        ></path>
                       </svg>
                       Uploading... {uploadProgress}%
                     </span>
                   ) : (
-                    'Upload Resume'
+                    "Upload Resume"
                   )}
                 </label>
                 {uploadedFileName && (
@@ -538,14 +585,27 @@ const ProfilePage = () => {
                   </span>
                 )}
               </div>
+              <Link href="/">
+                <button
+                  type="button"
+                  // disabled={isFinished} // Optional, disable if already finished
+                  className="bg-blue-950 text-white    rounded-lg px-6 py-2  hover:bg-blue-600 w-full md:w-auto"
+                >
+                  back to home page
+                </button>
+              </Link>
             </div>
           </div>
 
           {isModalOpen && (
             <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
               <div className="bg-gray-700 p-10 rounded shadow-lg text-white">
-                <h2 className="text-xl font-semibold text-white">Resume Score</h2>
-                <p><strong>Content Accuracy Percentage: </strong> {modalContent}</p>
+                <h2 className="text-xl font-semibold text-white">
+                  Resume Score
+                </h2>
+                <p>
+                  <strong>Content Accuracy Percentage: </strong> {modalContent}
+                </p>
                 <div className="flex mt-4">
                   <button
                     onClick={copyToClipboard}

@@ -45,6 +45,7 @@ export default function Builder({ onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [token, setToken] = useState(null);
   const [resumeId, setResumeId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -77,6 +78,7 @@ export default function Builder({ onClose }) {
     };
 
     // Make the API call to initiate download
+
     axios
       .post(
         "https://api.resumeintellect.com/api/user/paypal/create-payment",
@@ -150,12 +152,19 @@ export default function Builder({ onClose }) {
     }
   };
 
+  const handleBackToPrevious = () => {
+    setIsFinished(false);
+  };
+
   const handlePrevious = () => {
     setCurrentSection((prev) => Math.max(prev - 1, 0));
   };
 
   const handleSectionClick = (index) => {
-    setCurrentSection(index);
+    if (!isFinished) {
+      setCurrentSection(index);
+    }
+    // setCurrentSection(index);
   };
 
   const handleFontChange = (e) => {
@@ -325,41 +334,35 @@ export default function Builder({ onClose }) {
   };
 
   const handleDownload = async () => {
-    const targetElement = await getTargetElement();
+    setLoading(true); // Show loader when download starts
 
-    const options = {
-      resolution: Resolution.HIGH,
-      page: {
-        // margin is in MM, default is Margin.NONE = 0
-        // margin: Margin.SMALL,
-      },
-      canvas: {
-        qualityRatio: 1,
-      },
-      overrides: {
-        canvas: {
-          useCORS: true,
-        },
-      },
-    };
+    try {
+      const targetElement = await getTargetElement();
+      const options = {
+        resolution: Resolution.HIGH,
+        canvas: { qualityRatio: 1 },
+        overrides: { canvas: { useCORS: true } },
+      };
 
-    // Generate the PDF
-    await generatePDF(() => targetElement, options);
+      // Generate the PDF
+      await generatePDF(() => targetElement, options);
 
-    // Revert the modifications by removing the added classes
-    const h2Elements = targetElement.querySelectorAll(".border-b-2");
-    const iconElements = targetElement.querySelectorAll(".pdf-icon");
-    const mainHeadingElements = targetElement.querySelectorAll(".main-heading");
-
-    h2Elements.forEach((h2) => h2.classList.remove("pb-2"));
-    iconElements.forEach((icon) => icon.classList.remove("pt-4"));
-    mainHeadingElements.forEach((div) => div.classList.remove("pb-2"));
-    const styleElement = document.querySelector(
-      'style[data-custom="pdf-styles"]'
-    );
-    if (styleElement) {
-      styleElement.remove();
+      // Revert modifications by removing the added classes
+      const h2Elements = targetElement.querySelectorAll(".border-b-2");
+      const iconElements = targetElement.querySelectorAll(".pdf-icon");
+      const mainHeadingElements =
+        targetElement.querySelectorAll(".main-heading");
+      h2Elements.forEach((h2) => h2.classList.remove("pb-2"));
+      iconElements.forEach((icon) => icon.classList.remove("pt-4"));
+      mainHeadingElements.forEach((div) => div.classList.remove("pb-2"));
+      const styleElement = document.querySelector(
+        'style[data-custom="pdf-styles"]'
+      );
+      if (styleElement) styleElement.remove();
+    } catch (error) {
+      console.error("Error generating PDF:", error);
     }
+    setLoading(false); // Hide loader
   };
 
   return (
@@ -624,7 +627,7 @@ export default function Builder({ onClose }) {
                   <select
                     value={selectedFont}
                     onChange={handleFontChange}
-                    className="rounded-lg border-2 border-blue-800 px-8 py-1 font-bold text-blue-800 lg:block hidden"
+                    className="rounded-lg border-2 border-blue-800 font-bold text-blue-800 lg:block hidden m-2  px-5 py-2  bg-white  "
                   >
                     <option value="Ubuntu">Ubuntu</option>
                     <option value="Calibri">Calibri</option>
@@ -632,6 +635,7 @@ export default function Builder({ onClose }) {
                     <option value="Roboto">Roboto</option>
                     <option value="Poppins">Poppins</option>
                   </select>
+
                   <ColorPicker
                     selectedColor={headerColor}
                     onChange={setHeaderColor}
@@ -723,26 +727,43 @@ export default function Builder({ onClose }) {
                   type="button"
                   onClick={handleFinish}
                   // disabled={isFinished} // Optional, disable if already finished
-                  className="bg-blue-950 text-white px-5 py-2 mt-2 rounded-lg"
+                  className="bg-blue-950 text-white px-5 py-2 p-1 mt-2 rounded-lg"
                 >
                   Save
                 </button>
               </Link>
+              {loading && (
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+                  <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64 align-middle text-white font-semibold text-lg">
+                    Loading...
+                  </div>
+                </div>
+              )}
 
               <button
                 type="button"
                 className="rounded-lg px-10 lg:ms-2 font-bold bg-blue-950 text-white p-1"
                 onClick={handleDownload}
+                disabled={loading}
               >
                 Pay & Download
+              </button>
+              <button
+                type="button"
+                className="rounded-lg px-10 lg:ms-2 font-bold bg-blue-950 text-white p-1"
+                onClick={handleBackToPrevious}
+              >
+                Back to previous
               </button>
             </div>
 
             <div className="overflow-y-auto md:h-screen mx-auto">
               {/* <PDFExport ref={pdfExportComponent} {...pdfExportOptions}> */}
-              <div className="bg-white" style={{ fontFamily: selectedFont }}>
-                <Preview selectedTemplate={selectedTemplate} />
-              </div>
+              {isFinished && (
+                <div className="bg-white" style={{ fontFamily: selectedFont }}>
+                  <Preview selectedTemplate={selectedTemplate} />
+                </div>
+              )}
               {/* </PDFExport> */}
             </div>
           </div>
