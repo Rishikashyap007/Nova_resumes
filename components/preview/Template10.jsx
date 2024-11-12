@@ -37,10 +37,22 @@ const Template10 = () => {
     ];
 
     return (
-        <div className="bg-gray-100 p-5">
-        <div className="max-w-4xl bg-white p-6 mx-auto shadow-md border-l-4 border-red-600" style={{ borderLeftColor: backgroundColorss }}>
-          <header className="text-center border-b-2 border-red-600 pb-3 mb-5" style={{ borderColor: backgroundColorss }}>
-            <h1 className="text-3xl text-gray-800 uppercase tracking-wider" style={{ color: headerColor }}>{resumeData.name}</h1>
+      <div className="bg-gray-100 p-5">
+        <div
+          id="preview-section"
+          className="max-w-4xl bg-white p-6 mx-auto shadow-md border-l-4 border-red-600"
+          style={{ borderLeftColor: backgroundColorss }}
+        >
+          <header
+            className="text-center border-b-2 border-red-600 pb-3 mb-5"
+            style={{ borderColor: backgroundColorss }}
+          >
+            <h1
+              className="text-3xl text-gray-800 uppercase tracking-wider"
+              style={{ color: headerColor }}
+            >
+              {resumeData.name}
+            </h1>
             <p className="text-sm text-gray-500 text-center m-0">
               <ContactInfo
                 mainclass="flex flex-row gap-1 justify-center items-center mb-1 contact"
@@ -53,15 +65,21 @@ const Template10 = () => {
                 addressicon={<MdLocationOn />}
               />
             </p>
-
           </header>
 
           <section className="mb-5">
-            <p className="text-sm text-gray-500 leading-relaxed">{resumeData.summary}</p>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              {resumeData.summary}
+            </p>
           </section>
 
           <section className="mb-5">
-            <h2 className="text-xl text-red-600 uppercase mb-3" style={{ color: headerColor }}>Experience</h2>
+            <h2
+              className="text-xl text-red-600 uppercase mb-3"
+              style={{ color: headerColor }}
+            >
+              Experience
+            </h2>
             <div className="mb-5">
               {resumeData.workExperience.map((item, index) => (
                 <div key={index} className="mb-7">
@@ -77,7 +95,9 @@ const Template10 = () => {
                     />
                   </span>
 
-                  <p className="content hyphens-auto text-gray-500">{item.description}</p>
+                  <p className="content hyphens-auto text-gray-500">
+                    {item.description}
+                  </p>
 
                   <Droppable
                     droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
@@ -104,11 +124,15 @@ const Template10 = () => {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     className={` hover:scale-105 transition-transform duration-300 hover:outline-dashed hover:outline-2 hover:outline-gray-400
-                        ${snapshot.isDragging &&
-                                      "outline-dashed outline-2 outline-gray-400 bg-white"}`}
+                        ${
+                          snapshot.isDragging &&
+                          "outline-dashed outline-2 outline-gray-400 bg-white"
+                        }`}
                                   >
                                     <div
-                                      dangerouslySetInnerHTML={{ __html: achievement }}
+                                      dangerouslySetInnerHTML={{
+                                        __html: achievement,
+                                      }}
                                       contentEditable
                                     />
                                   </li>
@@ -125,11 +149,19 @@ const Template10 = () => {
           </section>
 
           <section className="mb-5">
-            <h2 className="text-xl text-red-600 uppercase mb-3" style={{ color: headerColor }}>Education</h2>
+            <h2
+              className="text-xl text-red-600 uppercase mb-3"
+              style={{ color: headerColor }}
+            >
+              Education
+            </h2>
             {resumeData.education.length > 0 && (
               <div className="mb-1">
                 {resumeData.education.map((item, index) => (
-                  <div key={index} className="mb-1 text-sm text-gray-500 font-semibold">
+                  <div
+                    key={index}
+                    className="mb-1 text-sm text-gray-500 font-semibold"
+                  >
                     <p className="content i-bold">{item.degree}</p>
                     <p className="content">{item.school}</p>
                     <DateRange
@@ -141,11 +173,15 @@ const Template10 = () => {
                 ))}
               </div>
             )}
-
           </section>
 
           <section>
-            <h2 className="text-xl text-red-600 uppercase mb-3" style={{ color: headerColor }}>Skills</h2>
+            <h2
+              className="text-xl text-red-600 uppercase mb-3"
+              style={{ color: headerColor }}
+            >
+              Skills
+            </h2>
             <ul className="list-none pl-0 text-sm text-gray-500 leading-relaxed">
               <Droppable droppableId="skills" type="SKILLS">
                 {(provided) => (
@@ -161,9 +197,9 @@ const Template10 = () => {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className={`hover:scale-105 transition-transform duration-300 mb-1 ${snapshot.isDragging &&
-                              "  "
-                              }`}
+                            className={`hover:scale-105 transition-transform duration-300 mb-1 ${
+                              snapshot.isDragging && "  "
+                            }`}
                           >
                             <Skills title={skill.title} skills={skill.skills} />
                           </div>

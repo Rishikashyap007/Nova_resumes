@@ -163,10 +163,12 @@ const Preview = ({ selectedTemplate }) => {
     if (source.droppableId.includes("WORK_EXPERIENCE_KEY_ACHIEVEMENT")) {
       const newWorkExperience = [...resumeData.workExperience];
       const workExperienceIndex = parseInt(source.droppableId.split("-")[1]);
-      const keyAchievements = newWorkExperience[workExperienceIndex].keyAchievements.split("\n");
+      const keyAchievements =
+        newWorkExperience[workExperienceIndex].keyAchievements.split("\n");
       const [removed] = keyAchievements.splice(source.index, 1);
       keyAchievements.splice(destination.index, 0, removed);
-      newWorkExperience[workExperienceIndex].keyAchievements = keyAchievements.join("\n");
+      newWorkExperience[workExperienceIndex].keyAchievements =
+        keyAchievements.join("\n");
       setResumeData({ ...resumeData, workExperience: newWorkExperience });
     }
 
@@ -187,7 +189,8 @@ const Preview = ({ selectedTemplate }) => {
     if (source.droppableId.includes("PROJECTS_KEY_ACHIEVEMENT")) {
       const newProjects = [...resumeData.projects];
       const projectIndex = parseInt(source.droppableId.split("-")[1]);
-      const keyAchievements = newProjects[projectIndex].keyAchievements.split("\n");
+      const keyAchievements =
+        newProjects[projectIndex].keyAchievements.split("\n");
       const [removed] = keyAchievements.splice(source.index, 1);
       keyAchievements.splice(destination.index, 0, removed);
       newProjects[projectIndex].keyAchievements = keyAchievements.join("\n");
@@ -237,7 +240,8 @@ const Preview = ({ selectedTemplate }) => {
             borderRadius: "5px",
             padding: "3px",
           }}
-          target="body"
+          // target="body"
+          target="#editable-content"
           menu={() => (
             <>
               <MenuButton
@@ -317,7 +321,12 @@ const A4PageWrapper = ({ children }) => {
   };
 
   return (
-    <div className="m-3" onLoad={alertA4Size}>
+    <div
+      className="m-3"
+      onLoad={alertA4Size}
+      id="editable-content"
+      contentEditable="true"
+    >
       {children}
     </div>
   );

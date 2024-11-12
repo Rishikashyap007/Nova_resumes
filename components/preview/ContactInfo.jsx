@@ -6,7 +6,6 @@ const ContactInfo = ({ mainclass, linkclass, teldata, emaildata, addressdata, te
         <a
           className={linkclass}
           aria-label="Phone Number"
-          style={{ lineHeight: 1 }}
           href={`tel:${teldata}`}
         >
           <span className="pdf-icon">{telicon}</span>
@@ -15,17 +14,12 @@ const ContactInfo = ({ mainclass, linkclass, teldata, emaildata, addressdata, te
         <a
           className={linkclass}
           aria-label="Email Address"
-          style={{}}
           href={`mailto:${emaildata}`}
         >
           <span className="pdf-icon">{emailicon}</span>
           <span>{emaildata}</span>
         </a>
-        <address
-          aria-label="Address"
-          style={{}}
-          className={linkclass + " not-italic"}
-        >
+        <address aria-label="Address" className={linkclass + " not-italic"}>
           <span className="pdf-icon">{addressicon}</span>
           <span>{addressdata}</span>
         </address>

@@ -37,7 +37,10 @@ const Template13 = () => {
     ];
 
     return (
-      <div className="w-4/5 mx-auto my-5 bg-white p-5 shadow-md">
+      <div
+        id="preview-section"
+        className="w-4/5 mx-auto my-5 bg-white p-5 shadow-md"
+      >
         <h1
           className="text-4xl font-bold text-red-800 mb-2"
           style={{ color: headerColor }}
@@ -80,7 +83,7 @@ const Template13 = () => {
                 title={socialMedia.socialMedia}
                 target="_blank"
                 rel="noreferrer"
-                className="text-red-800 grid"
+                className="text-red-800 flex gap-1 items-center"
                 // Prevent text overflowing, If the socialMedia.link string is longer than 32 characters, apply the wordWrap and display styles to this <a> tag.
                 // wordWrap: "break-word" breaks the text onto the next line if it's too long,
                 // display: "inline-block" is necessary for wordWrap to work on an inline element like <a>.
@@ -88,10 +91,7 @@ const Template13 = () => {
                 {icons.map((icon, index) => {
                   if (icon.name === socialMedia.socialMedia.toLowerCase()) {
                     return (
-                      <span
-                        className="inline-flex items-center mr-2 pdf-icon"
-                        key={index}
-                      >
+                      <span className="pdf-icon" key={index}>
                         {icon.icon}
                       </span>
                     );

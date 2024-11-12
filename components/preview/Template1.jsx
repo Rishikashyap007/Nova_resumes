@@ -109,11 +109,14 @@ const Template1 = () => {
   };
   return (
     <div className="">
-      <div className="max-w-4xl mx-auto bg-white p-8 border border-gray-200 rounded-lg shadow-lg">
+      <div
+        id="preview-section"
+        className="max-w-4xl mx-auto bg-white p-8 border border-gray-200 rounded-lg shadow-lg"
+      >
         {/* <h1 style={{ color: headerColor }}>Template 1</h1>*/}
         <div className="">
           <A4PageWrapper>
-            <HighlightMenu
+            {/* <HighlightMenu
               styles={{
                 borderColor: "#C026D3",
                 backgroundColor: "#C026D3",
@@ -173,7 +176,7 @@ const Template1 = () => {
                   />
                 </>
               )}
-            />
+            /> */}
 
             <div>
               <div className="f-col items-center mb-1">

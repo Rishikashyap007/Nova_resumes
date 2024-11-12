@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 
 const ResumeContext = createContext(DefaultResumeData);
+import toast from "react-hot-toast";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -190,7 +191,11 @@ export default function Builder({ onClose }) {
       ? "flex items-center p-2 bg-slate-900 border-b-2 rounded font-semibold text-white"
       : "flex items-center p-2 hover:bg-indigo-100  border-b-2 rounded font-semibold  ";
   };
-
+  const saveResume = async () => {
+    // Logic to save the resume, e.g., API call to save data
+    // await saveResumeAPI(resumeData);
+    console.log("Resume saved!");
+  };
   const handleFinish = async () => {
     if (!resumeData) return;
 
@@ -271,8 +276,12 @@ export default function Builder({ onClose }) {
       // if (response.data) {
       //   router.push('/dashboard/ai-resume-builder');
       // }
+      await saveResume(); // Save the resume
+      toast.success("Your resume has been saved in 'My Resume'");
     } catch (error) {
       console.error("Error updating resume:", error);
+      console.error("Error saving resume:", error);
+      toast.error("Failed to save resume. Please try again.");
     }
   };
 
@@ -322,7 +331,7 @@ export default function Builder({ onClose }) {
       resolution: Resolution.HIGH,
       page: {
         // margin is in MM, default is Margin.NONE = 0
-        margin: Margin.SMALL,
+        // margin: Margin.SMALL,
       },
       canvas: {
         qualityRatio: 1,
@@ -673,10 +682,7 @@ export default function Builder({ onClose }) {
                 </form>
 
                 <PDFExport ref={pdfExportComponent} {...pdfExportOptions}>
-                  <div
-                    id="preview-section"
-                    className="bg-white lg:block hidden"
-                  >
+                  <div className="bg-white lg:block hidden">
                     <Preview selectedTemplate={selectedTemplate} />
                   </div>
                 </PDFExport>
@@ -687,7 +693,7 @@ export default function Builder({ onClose }) {
         {isFinished && (
           <div className="p-">
             <div className="lg:flex lg:justify-between  bg-gray-200 p-2 px-5">
-              <div className="lg:flex flex-row gap-4 flex-row justify-center bg-gray-200">
+              <div className="lg:flex  gap-4 flex-row justify-center bg-gray-200">
                 <select
                   value={selectedFont}
                   onChange={handleFontChange}
@@ -712,14 +718,17 @@ export default function Builder({ onClose }) {
                   setSelectedTemplate={setSelectedTemplate}
                 />
               </div>
-              <button
-                type="button"
-                onClick={handleFinish}
-                // disabled={isFinished} // Optional, disable if already finished
-                className="bg-blue-950 text-white px-5 py-2 rounded-lg"
-              >
-                Save
-              </button>
+              <Link href="/dashboard/resumelist">
+                <button
+                  type="button"
+                  onClick={handleFinish}
+                  // disabled={isFinished} // Optional, disable if already finished
+                  className="bg-blue-950 text-white px-5 py-2 mt-2 rounded-lg"
+                >
+                  Save
+                </button>
+              </Link>
+
               <button
                 type="button"
                 className="rounded-lg px-10 lg:ms-2 font-bold bg-blue-950 text-white p-1"
@@ -731,7 +740,7 @@ export default function Builder({ onClose }) {
 
             <div className="overflow-y-auto md:h-screen mx-auto">
               {/* <PDFExport ref={pdfExportComponent} {...pdfExportOptions}> */}
-              <div id="preview-section" className="bg-white">
+              <div className="bg-white" style={{ fontFamily: selectedFont }}>
                 <Preview selectedTemplate={selectedTemplate} />
               </div>
               {/* </PDFExport> */}
