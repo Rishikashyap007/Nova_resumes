@@ -89,8 +89,6 @@ const Template9 = () => {
                         >
                           <h2
                             className="section-title mb-1 border-b-2 border-gray-300 editable"
-                            contentEditable
-                            suppressContentEditableWarning
                             style={{ color: headerColor }}
                           >
                             Work Experience
@@ -161,7 +159,6 @@ const Template9 = () => {
                                                       dangerouslySetInnerHTML={{
                                                         __html: achievement,
                                                       }}
-                                                      contentEditable
                                                     />
                                                   </li>
                                                 )}
@@ -189,8 +186,6 @@ const Template9 = () => {
                         >
                           <h2
                             className="section-title mb-1 border-b-2 border-gray-300 editable"
-                            contentEditable
-                            suppressContentEditableWarning
                             style={{ color: headerColor }}
                           >
                             Projects
@@ -266,7 +261,6 @@ const Template9 = () => {
                                                       dangerouslySetInnerHTML={{
                                                         __html: achievement,
                                                       }}
-                                                      contentEditable
                                                     />
                                                   </li>
                                                 )}

@@ -27,6 +27,7 @@ import generatePDF, { Resolution, Margin } from "react-to-pdf";
 
 const ResumeContext = createContext(DefaultResumeData);
 import toast from "react-hot-toast";
+import Sidebar from "./dashboard/Sidebar";
 
 const Print = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
@@ -362,6 +363,8 @@ export default function Builder({ onClose }) {
     setLoading(false); // Hide loader
   };
 
+  console.log("Res data>>>>>", resumeData);
+
   return (
     <>
       <ResumeContext.Provider
@@ -396,7 +399,7 @@ export default function Builder({ onClose }) {
               </button>
 
               {/* Sidebar */}
-              <div
+              {/* <div
                 className={`bg-white h-screen p-4 border-r border-gray-200 md:block fixed md:relative top-0 left-0 transition-transform duration-300 ease-in-out ${
                   isSidebarOpen
                     ? "translate-x-0"
@@ -561,7 +564,8 @@ export default function Builder({ onClose }) {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
+              <Sidebar />
             </div>
             <div>
               <div className="flex justify-center">
@@ -603,6 +607,7 @@ export default function Builder({ onClose }) {
                   {currentSection === sections.length - 1 ? "Finish" : "Next"}
                 </button>
               </div>
+
               <div className="lg:flex justify-center bg-gray-200 p-2 px-5">
                 {/* <button
                 type="button"
@@ -692,7 +697,7 @@ export default function Builder({ onClose }) {
           </div>
         )}
         {isFinished && (
-          <div className="p-">
+          <div className="">
             <div className="lg:flex lg:justify-between  bg-gray-200 p-2 px-5">
               <div className="lg:flex  gap-4 flex-row justify-center bg-gray-200">
                 <select
@@ -719,16 +724,16 @@ export default function Builder({ onClose }) {
                   setSelectedTemplate={setSelectedTemplate}
                 />
               </div>
-              <Link href="/dashboard/resumelist">
-                <button
-                  type="button"
-                  onClick={handleFinish}
-                  // disabled={isFinished} // Optional, disable if already finished
-                  className="bg-blue-950 text-white px-5 py-2 p-1 mt-2 rounded-lg"
-                >
-                  Save
-                </button>
-              </Link>
+
+              <button
+                type="button"
+                onClick={handleFinish}
+                // disabled={isFinished} // Optional, disable if already finished
+                className="bg-blue-950 text-white px-5 py-2 p-1  rounded-lg"
+              >
+                Save
+              </button>
+
               {loading && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
                   <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64 align-middle text-white font-semibold text-lg">

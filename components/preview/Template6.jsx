@@ -73,8 +73,6 @@ const Template6 = () => {
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                       <h2
                         className="section-title mb-1 border-b-2 border-gray-300 editable leading-tight"
-                        contentEditable
-                        suppressContentEditableWarning
                         style={{ color: headerColor }}
                       >
                         Work Experience
@@ -146,7 +144,6 @@ const Template6 = () => {
                                                   dangerouslySetInnerHTML={{
                                                     __html: achievement,
                                                   }}
-                                                  contentEditable
                                                 />
                                               </li>
                                             )}
@@ -171,8 +168,6 @@ const Template6 = () => {
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                       <h2
                         className="section-title mb-1 border-b-2 border-gray-300 editable leading-tight"
-                        contentEditable
-                        suppressContentEditableWarning
                         style={{ color: headerColor }}
                       >
                         Projects
@@ -249,7 +244,6 @@ const Template6 = () => {
                                                   dangerouslySetInnerHTML={{
                                                     __html: achievement,
                                                   }}
-                                                  contentEditable
                                                 />
                                               </li>
                                             )}

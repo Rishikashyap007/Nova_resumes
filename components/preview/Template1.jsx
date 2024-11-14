@@ -10,6 +10,7 @@ import Skills from "./Skills";
 import Certification from "./Certification";
 import Image from "next/image";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 import {
   FaGithub,
   FaLinkedin,
@@ -75,8 +76,13 @@ const checkGrammar = () => {
 };
 
 const Template1 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    handleChange,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -86,6 +92,25 @@ const Template1 = () => {
     { name: "youtube", icon: <FaYoutube /> },
     { name: "website", icon: <CgWebsite /> },
   ];
+
+  // const sanitizedSummary = DOMPurify.sanitize(resumeData.summary);
+  const sanitizedSummary = DOMPurify.sanitize(resumeData.summary, {
+    USE_PROFILES: { html: true }, // Use standard HTML tags
+    ALLOWED_TAGS: [
+      "b",
+      "i",
+      "em",
+      "strong",
+      "p",
+      "h1",
+      "h2",
+      "ul",
+      "ol",
+      "li",
+      "br",
+    ], // Add more tags if necessary
+    ALLOWED_ATTR: ["style", "class", "id"], // Allow style or custom attributes if required
+  });
   const MenuButton = ({ title, icon, onClick }) => (
     <button
       onClick={onClick}
@@ -192,10 +217,12 @@ const Template1 = () => {
                       />
                     </div>
                   )}
-                <h1 className="name" style={{ color: headerColor }}>
+                <h1 className="name" style={{ color: headerColor }} name="name">
                   {resumeData.name}
                 </h1>
-                <p className="profession">{resumeData.position}</p>
+                <p className="profession" name="position">
+                  {resumeData.position}
+                </p>
                 <ContactInfo
                   mainclass="flex flex-row gap-1 mb-1 contact"
                   linkclass="inline-flex items-center gap-1"
@@ -205,6 +232,7 @@ const Template1 = () => {
                   telicon={<MdPhone />}
                   emailicon={<MdEmail />}
                   addressicon={<MdLocationOn />}
+                  handleChange={handleChange}
                 />
                 <div className="grid grid-cols-3 gap-1">
                   {Array.isArray(resumeData?.socialMedia) ? (
@@ -258,9 +286,14 @@ const Template1 = () => {
                       >
                         Summary
                       </h2>
-                      <p className="content break-words">
-                        {resumeData.summary}
-                      </p>
+                      <p
+                        className="content break-words"
+                        name="summary"
+                        dangerouslySetInnerHTML={{
+                          __html: sanitizedSummary,
+                        }}
+                      />
+                      {/* {resumeData.summary} */}
                     </div>
                   )}
                   <div>
@@ -346,8 +379,6 @@ const Template1 = () => {
                           >
                             <h2
                               className="section-title mb-1 border-b-2 border-gray-300 editable"
-                              contentEditable
-                              suppressContentEditableWarning
                               style={{ color: headerColor }}
                             >
                               Work Experience
@@ -379,9 +410,13 @@ const Template1 = () => {
                                       />
                                     </div>
                                     <p className="content">{item.position}</p>
-                                    <p className="content hyphens-auto">
-                                      {item.description}
-                                    </p>
+                                    <p
+                                      className="content hyphens-auto"
+                                      dangerouslySetInnerHTML={{
+                                        __html: item.description,
+                                      }}
+                                    />
+
                                     <Droppable
                                       droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                                       type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -418,7 +453,6 @@ const Template1 = () => {
                                                         dangerouslySetInnerHTML={{
                                                           __html: achievement,
                                                         }}
-                                                        contentEditable
                                                       />
                                                     </li>
                                                   )}
@@ -446,8 +480,6 @@ const Template1 = () => {
                         >
                           <h2
                             className="section-title mb-1 border-b-2 border-gray-300 editable"
-                            contentEditable
-                            suppressContentEditableWarning
                             style={{ color: headerColor }}
                           >
                             Projects
@@ -486,7 +518,12 @@ const Template1 = () => {
                                   >
                                     {item.link}
                                   </Link>
-                                  <p className="content">{item.description}</p>
+                                  <p
+                                    className="content"
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.description,
+                                    }}
+                                  />
                                   <Droppable
                                     droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                                     type="PROJECTS_KEY_ACHIEVEMENT"
@@ -523,7 +560,6 @@ const Template1 = () => {
                                                       dangerouslySetInnerHTML={{
                                                         __html: achievement,
                                                       }}
-                                                      contentEditable
                                                     />
                                                   </li>
                                                 )}

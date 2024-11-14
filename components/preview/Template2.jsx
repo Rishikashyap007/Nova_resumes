@@ -8,28 +8,53 @@ import DateRange from "../utility/DateRange";
 import Language from "./Language";
 import Skills from "./Skills";
 import Certification from "./Certification";
-import {
-    FaGithub,
-    FaLinkedin,
-    FaTwitter,
-    FaFacebook,
-    FaInstagram,
-    FaYoutube, FaBold, FaItalic, FaPlus, FaMinus, FaAlignLeft, FaAlignCenter, FaAlignRight,FaLink,
-    FaUnderline,
-  } from "react-icons/fa";
-  import { MdEmail, MdLocationOn, MdPhone, MdPictureAsPdf } from "react-icons/md";
-  import dynamic from "next/dynamic";
-  import Image from "next/image";
-  import Link from "next/link";
-  const html2pdf = dynamic(() => import("html2pdf.js"), { ssr: false });
+import DOMPurify from "dompurify";
 
-  // Importing draggable components dynamically
-const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((mod) => mod.DragDropContext), { ssr: false });
-const Droppable = dynamic(() => import("react-beautiful-dnd").then((mod) => mod.Droppable), { ssr: false });
-const Draggable = dynamic(() => import("react-beautiful-dnd").then((mod) => mod.Draggable), { ssr: false })
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaFacebook,
+  FaInstagram,
+  FaYoutube,
+  FaBold,
+  FaItalic,
+  FaPlus,
+  FaMinus,
+  FaAlignLeft,
+  FaAlignCenter,
+  FaAlignRight,
+  FaLink,
+  FaUnderline,
+} from "react-icons/fa";
+import { MdEmail, MdLocationOn, MdPhone, MdPictureAsPdf } from "react-icons/md";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+const html2pdf = dynamic(() => import("html2pdf.js"), { ssr: false });
+
+// Importing draggable components dynamically
+const DragDropContext = dynamic(
+  () => import("react-beautiful-dnd").then((mod) => mod.DragDropContext),
+  { ssr: false }
+);
+const Droppable = dynamic(
+  () => import("react-beautiful-dnd").then((mod) => mod.Droppable),
+  { ssr: false }
+);
+const Draggable = dynamic(
+  () => import("react-beautiful-dnd").then((mod) => mod.Draggable),
+  { ssr: false }
+);
+
 const Template2 = () => {
-  const { resumeData, setResumeData, headerColor, backgroundColorss } =
-    useContext(ResumeContext);
+  const {
+    resumeData,
+    setResumeData,
+    headerColor,
+    backgroundColorss,
+    handleChange,
+  } = useContext(ResumeContext);
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -39,6 +64,17 @@ const Template2 = () => {
     { name: "youtube", icon: <FaYoutube /> },
     { name: "website", icon: <CgWebsite /> },
   ];
+  // Sanitize the content using DOMPurify (without <h1>, <h2> tags)
+  const sanitizedSummary = DOMPurify.sanitize(resumeData.summary, {
+    USE_PROFILES: { html: true },
+    ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "ul", "ol", "li", "br"], // Exclude h1, h2
+  });
+
+  // Optionally remove heading tags (h1, h2) using a regex replacement
+  const sanitizedWithoutHeadings = sanitizedSummary.replace(
+    /<\/?(h[1-6])>/gi,
+    ""
+  );
   const MenuButton = ({ title, icon, onClick }) => (
     <button
       onClick={onClick}
@@ -55,6 +91,7 @@ const Template2 = () => {
 
     html2pdfModule().from(element).save("resume.pdf");
   };
+  console.log("Resume data >>>>>>>>>>>", resumeData);
   return (
     <div
       id="preview-section"
@@ -136,15 +173,18 @@ const Template2 = () => {
               />
             </div>
           )}
-          <h1 className="name" style={{ color: headerColor }}>
+          <h1 className="name" style={{ color: headerColor }} name="name">
             {resumeData.name}
           </h1>
-          <p className="profession">{resumeData.position}</p>
+          <p className="profession" name="position">
+            {resumeData.position}
+          </p>
           <ContactInfo
             mainclass=" flex-col gap-1 mb-1 contact"
             linkclass=" gap-1"
             teldata={`Phone: ${resumeData.contactInformation}`}
             emaildata={`| Email: ${resumeData.email}`}
+            handleChange={handleChange}
           />
           <div className="grid grid-row-3 gap-1">
             {resumeData.socialMedia.map((socialMedia, index) => {
@@ -196,7 +236,15 @@ const Template2 = () => {
                   className=" border-l-4 border-l-gray-800 "
                   style={{ background: "#eee", padding: "10px" }}
                 >
-                  <p className="content break-words">{resumeData.summary}</p>
+                  {/* <p className="content break-words">{sanitizedSummary}</p>
+                   */}
+                  <p
+                    className="content break-words"
+                    name="summary"
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizedWithoutHeadings,
+                    }}
+                  />
                 </div>
               </div>
             )}
@@ -248,11 +296,7 @@ const Template2 = () => {
                         >
                           {skill.skills.length > 0 && (
                             <>
-                              <h2
-                                className="section-title mb-1 border-b-2 border-gray-300 editable"
-                                contentEditable
-                                suppressContentEditableWarning
-                              >
+                              <h2 className="section-title mb-1 border-b-2 border-gray-300 editable">
                                 {skill.title}
                               </h2>
                               <p className="sub-content border-l-4 border-l-gray-800 p-2 bg-stone-200 my-2">
@@ -308,8 +352,6 @@ const Template2 = () => {
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     <h2
                       className="section-title mb-1 border-b-2 border-gray-300 editable"
-                      contentEditable
-                      suppressContentEditableWarning
                       style={{ color: headerColor }}
                     >
                       Work Experience
@@ -377,7 +419,6 @@ const Template2 = () => {
                                                 dangerouslySetInnerHTML={{
                                                   __html: achievement,
                                                 }}
-                                                contentEditable
                                               />
                                             </li>
                                           )}
@@ -402,8 +443,6 @@ const Template2 = () => {
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     <h2
                       className="section-title mb-1 border-b-2 border-gray-300 editable"
-                      contentEditable
-                      suppressContentEditableWarning
                       style={{ color: headerColor }}
                     >
                       Projects
@@ -477,7 +516,6 @@ const Template2 = () => {
                                                 dangerouslySetInnerHTML={{
                                                   __html: achievement,
                                                 }}
-                                                contentEditable
                                               />
                                             </li>
                                           )}

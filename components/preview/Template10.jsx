@@ -133,7 +133,6 @@ const Template10 = () => {
                                       dangerouslySetInnerHTML={{
                                         __html: achievement,
                                       }}
-                                      contentEditable
                                     />
                                   </li>
                                 )}

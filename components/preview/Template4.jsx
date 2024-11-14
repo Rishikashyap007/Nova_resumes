@@ -125,7 +125,6 @@ const Template4 = () => {
                                 dangerouslySetInnerHTML={{
                                   __html: achievement,
                                 }}
-                                contentEditable
                               />
                             </li>
                           )}

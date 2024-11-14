@@ -39,7 +39,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="aibuilder"
+            href="/dashboard/aibuilder"
             className={getLinkClassName("/dashboard/aibuilder")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -49,7 +49,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="resumelist"
+            href="/dashboard/resumelist"
             className={getLinkClassName("/dashboard/resumelist")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -59,7 +59,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="notification"
+            href="/dashboard/notification"
             className={getLinkClassName("/dashboard/notification")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -69,7 +69,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="skilltest"
+            href="/dashboard/skilltest"
             className={getLinkClassName("/dashboard/skilltest")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -79,7 +79,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="addrefferal"
+            href="/dashboard/addrefferal"
             className={getLinkClassName("/dashboard/addrefferal")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -89,7 +89,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="skillhistorylist"
+            href="/dashboard/skillhistorylist"
             className={getLinkClassName("/dashboard/skillhistorylist")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -99,7 +99,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="reffrerallistpage"
+            href="/dashboard/reffrerallistpage"
             className={getLinkClassName("/dashboard/reffrerallistpage")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -109,7 +109,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="paymentpage"
+            href="/dashboard/paymentpage"
             className={getLinkClassName("/dashboard/paymentpage")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -119,7 +119,7 @@ const Sidebar = ({ onClose }) => {
         </li>
         <li>
           <Link
-            href="password"
+            href="/dashboard/password"
             className={getLinkClassName("/dashboard/password")}
             onClick={onClose} // Close sidebar on link click
           >
@@ -128,16 +128,16 @@ const Sidebar = ({ onClose }) => {
           </Link>
         </li>
         <li>
-          
           <Link
             href="/"
             className="flex items-center p-2 hover:bg-slate-900 hover:text-white border-b-2 rounded font-semibold"
-            onClick={() => { handleLogout(); }}>  
-          
+            onClick={() => {
+              handleLogout();
+            }}
+          >
             <span className="mr-2 ">🔓</span>
             <span>Log Out</span>
           </Link>
-          
         </li>
       </ul>
     </div>

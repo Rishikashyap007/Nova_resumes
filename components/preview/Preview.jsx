@@ -298,6 +298,7 @@ const Preview = ({ selectedTemplate }) => {
             </>
           )}
         />
+
         <DragDropContext onDragEnd={onDragEnd}>
           {templates[selectedTemplate]}
         </DragDropContext>
@@ -321,12 +322,7 @@ const A4PageWrapper = ({ children }) => {
   };
 
   return (
-    <div
-      className="m-3"
-      onLoad={alertA4Size}
-      id="editable-content"
-      contentEditable="true"
-    >
+    <div className="m-3" onLoad={alertA4Size} id="editable-content">
       {children}
     </div>
   );

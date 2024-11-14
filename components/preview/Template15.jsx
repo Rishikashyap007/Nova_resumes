@@ -147,7 +147,6 @@ const Template15 = () => {
                                                 dangerouslySetInnerHTML={{
                                                   __html: achievement,
                                                 }}
-                                                contentEditable
                                               />
                                             </li>
                                           )}
@@ -172,8 +171,6 @@ const Template15 = () => {
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     <h2
                       className="section-title mb-1 border-b-2 border-gray-300 editable"
-                      contentEditable
-                      suppressContentEditableWarning
                       style={{ color: headerColor }}
                     >
                       Projects
@@ -246,7 +243,6 @@ const Template15 = () => {
                                                 dangerouslySetInnerHTML={{
                                                   __html: achievement,
                                                 }}
-                                                contentEditable
                                               />
                                             </li>
                                           )}

@@ -1,21 +1,37 @@
 import React, { useContext, useState } from "react";
 import FormButton from "./FormButton";
 import { ResumeContext } from "../../pages/builder";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+const quillModules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ align: [] }],
+  ],
+};
 
 const WorkExperience = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const handleWorkExperience = (e, index) => {
+  const handleWorkExperience = (value, index, fieldName) => {
     const newWorkExperience = [...resumeData.workExperience];
-    newWorkExperience[index][e.target.name] = e.target.value;
+    newWorkExperience[index][fieldName] = value;
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
-
+  // const handleProjects = (value, index, fieldName) => {
+  //   const newProjects = [...resumeData.projects];
+  //   newProjects[index][fieldName] = value;
+  //   setResumeData({ ...resumeData, projects: newProjects });
+  // };
   const addWorkExperience = () => {
     setResumeData({
       ...resumeData,
@@ -43,14 +59,19 @@ const WorkExperience = () => {
   const handleSearchChange = async (e) => {
     const value = e.target.value;
     setSearchValue(value);
-    if (e.key === 'Enter' && value.length > 2) {
+    if (e.key === "Enter" && value.length > 2) {
       setIsLoading(true);
       try {
-        const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_GENAI_API_KEY);
+        const genAI = new GoogleGenerativeAI(
+          process.env.REACT_APP_GOOGLE_GENAI_API_KEY
+        );
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const result = await model.generateContent(value);
         const response = result.response;
-        const responsibilities = response.text().split('\n').filter(line => line.trim() !== '');
+        const responsibilities = response
+          .text()
+          .split("\n")
+          .filter((line) => line.trim() !== "");
         setSearchResults(responsibilities);
       } catch (err) {
         setError(err.message);
@@ -63,20 +84,23 @@ const WorkExperience = () => {
   };
 
   const handleDescriptionChange = (value, index) => {
-    handleWorkExperience({ target: { name: 'description', value } }, index);
+    handleWorkExperience({ target: { name: "description", value } }, index);
   };
 
   const handleSearchResultSelect = (result, index) => {
-    const currentDescription = resumeData.workExperience[index].description || '';
-    const newDescription = currentDescription ? `${currentDescription}\n${result}` : result;
+    const currentDescription =
+      resumeData.workExperience[index].description || "";
+    const newDescription = currentDescription
+      ? `${currentDescription}\n${result}`
+      : result;
     handleDescriptionChange(newDescription, index);
-    setSearchValue('');
+    setSearchValue("");
     setSearchResults([]);
   };
 
   const handleAssistClick = (e, index) => {
     e.preventDefault();
-    handleSearchChange({ target: { value: searchValue }, key: 'Enter' });
+    handleSearchChange({ target: { value: searchValue }, key: "Enter" });
   };
 
   return (
@@ -91,7 +115,7 @@ const WorkExperience = () => {
             name="company"
             className="w-full other-input border-black border"
             value={workExperience.company}
-            onChange={(e) => handleWorkExperience(e, index)}
+            onChange={((e) => handleWorkExperience(e, index), "company")}
           />
           <label className="mt-2">Job Title</label>
           <input
@@ -100,7 +124,7 @@ const WorkExperience = () => {
             name="position"
             className="w-full other-input border-black border"
             value={workExperience.position}
-            onChange={(e) => handleWorkExperience(e, index)}
+            onChange={(e) => handleWorkExperience(e, index, "position")}
           />
           <div className="flex-wrap-gap-2">
             <input
@@ -109,7 +133,7 @@ const WorkExperience = () => {
               name="startYear"
               className="other-input border-black border"
               value={workExperience.startYear}
-              onChange={(e) => handleWorkExperience(e, index)}
+              onChange={(e) => handleWorkExperience(e, index, "startYear")}
             />
             <input
               type="date"
@@ -117,7 +141,7 @@ const WorkExperience = () => {
               name="endYear"
               className="other-input border-black border"
               value={workExperience.endYear}
-              onChange={(e) => handleWorkExperience(e, index)}
+              onChange={(e) => handleWorkExperience(e, index, "endYear")}
             />
           </div>
           <div className="flex justify-between mb-2">
@@ -130,28 +154,39 @@ const WorkExperience = () => {
               + AI Assist
             </button>
           </div>
-          <textarea
-            type="text"
-            placeholder="Description"
-            name="description"
-            className="w-full other-input border-black border h-32"
-            value={workExperience.description}
-            maxLength="250"
-            onChange={(e) => handleWorkExperience(e, index)}
-          />
+          <div className="max-w-[23rem]">
+            <ReactQuill
+              modules={quillModules}
+              placeholder="Description"
+              name="description"
+              className="w-full other-input border-black border h-50"
+              value={workExperience.description}
+              maxLength="250"
+              onChange={(e) => handleWorkExperience(e, index, "description")}
+            />
+          </div>
+
           <label className="mt-2">Key Achievements</label>
-          <textarea
-            type="text"
-            placeholder="Key Achievements"
-            name="keyAchievements"
-            className="w-full other-input border-black border h-40"
-            value={workExperience.keyAchievements}
-            onChange={(e) => handleWorkExperience(e, index)}
-          />
+          <div className="max-w-[23rem]">
+            <ReactQuill
+              modules={quillModules}
+              placeholder="Key Achievements"
+              name="keyAchievements"
+              className="w-full other-input border-black border h-50"
+              value={workExperience.keyAchievements}
+              onChange={(e) =>
+                handleWorkExperience(e, index, "keyAchievements")
+              }
+            />
+          </div>
+
           {searchResults.length > 0 && (
             <ul className="search-results-list">
               {searchResults.map((result, idx) => (
-                <li key={idx} onClick={() => handleSearchResultSelect(result, index)}>
+                <li
+                  key={idx}
+                  onClick={() => handleSearchResultSelect(result, index)}
+                >
                   {result}
                 </li>
               ))}
