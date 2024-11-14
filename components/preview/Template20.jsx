@@ -142,9 +142,13 @@ const Template20 = () => {
                                   />
                                 </div>
                                 <p className="content">{item.position}</p>
-                                <p className="content hyphens-auto">
-                                  {item.description}
-                                </p>
+                                <p
+                                  className="content hyphens-auto"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                  }}
+                                />
+
                                 <Droppable
                                   droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                                   type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -241,7 +245,12 @@ const Template20 = () => {
                                 >
                                   {item.link}
                                 </Link>
-                                <p className="content">{item.description}</p>
+                                <p
+                                  className="content"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                  }}
+                                />
                                 <Droppable
                                   droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                                   type="PROJECTS_KEY_ACHIEVEMENT"

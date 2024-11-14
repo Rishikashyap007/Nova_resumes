@@ -70,9 +70,10 @@ const Template3 = () => {
           <p
             className="text-xm font-semibold text-gray-500 mb-2"
             name="summary"
-          >
-            {resumeData.summary}
-          </p>
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </section>
 
         <section className="mb-6">
@@ -118,9 +119,13 @@ const Template3 = () => {
                               />
                             </div>
                             <p className="content">{item.position}</p>
-                            <p className="content hyphens-auto text-gray-500">
-                              {item.description}
-                            </p>
+                            <p
+                              className="content hyphens-auto text-gray-500"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
+
                             <Droppable
                               droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                               type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -216,7 +221,12 @@ const Template3 = () => {
                             >
                               {item.link}
                             </Link>
-                            <p className="content">{item.description}</p>
+                            <p
+                              className="content"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
                             <Droppable
                               droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                               type="PROJECTS_KEY_ACHIEVEMENT"

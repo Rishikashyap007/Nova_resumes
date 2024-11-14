@@ -67,7 +67,12 @@ const Template4 = () => {
           {resumeData.name}
         </h1>
         <h2 className="text-xl text-gray-800 mb-5">{resumeData.position}</h2>
-        <p className="mb-5 text-xs">{resumeData.summary}</p>
+        <p
+          className="mb-5 text-xs"
+          dangerouslySetInnerHTML={{
+            __html: resumeData.summary,
+          }}
+        />
 
         <h3
           className="text-lg font-semibold text-gray-800 mt-7 mb-4 border-b-2 text-[#818cf8] pb-1"
@@ -89,7 +94,12 @@ const Template4 = () => {
               />
             </span>
 
-            <p className="content hyphens-auto">{item.description}</p>
+            <p
+              className="content hyphens-auto"
+              dangerouslySetInnerHTML={{
+                __html: item.description,
+              }}
+            />
 
             <Droppable
               droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}

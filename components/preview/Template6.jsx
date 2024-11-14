@@ -106,9 +106,13 @@ const Template6 = () => {
                               <p className="content leading-relaxed">
                                 {item.position}
                               </p>
-                              <p className="content hyphens-auto leading-loose">
-                                {item.description}
-                              </p>
+                              <p
+                                className="content hyphens-auto leading-loose"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.description,
+                                }}
+                              />
+
                               <Droppable
                                 droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                                 type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -206,9 +210,13 @@ const Template6 = () => {
                               >
                                 {item.link}
                               </Link>
-                              <p className="content leading-relaxed">
-                                {item.description}
-                              </p>
+                              <p
+                                className="content leading-relaxed"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.description,
+                                }}
+                              />
+
                               <Droppable
                                 droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                                 type="PROJECTS_KEY_ACHIEVEMENT"

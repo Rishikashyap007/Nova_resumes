@@ -84,7 +84,11 @@ const Template8 = () => {
           >
             COMMUNICATION
           </h2>
-          <p>{resumeData.summary}</p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
         <div>
           <h2
@@ -196,9 +200,13 @@ const Template8 = () => {
                               />
                             </div>
                             <p className="content">{item.position}</p>
-                            <p className="content hyphens-auto">
-                              {item.description}
-                            </p>
+                            <p
+                              className="content hyphens-auto"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
+
                             <Droppable
                               droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                               type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -295,7 +303,12 @@ const Template8 = () => {
                             >
                               {item.link}
                             </Link>
-                            <p className="content">{item.description}</p>
+                            <p
+                              className="content"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
                             <Droppable
                               droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                               type="PROJECTS_KEY_ACHIEVEMENT"

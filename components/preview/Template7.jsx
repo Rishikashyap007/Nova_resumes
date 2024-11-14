@@ -53,7 +53,12 @@ const Template7 = () => {
             <h2 className="text-2xl text-gray-800 mb-2">
               {resumeData.position}
             </h2>
-            <p className="text-base text-gray-600">{resumeData.summary}</p>
+            <p
+              className="text-base text-gray-600"
+              dangerouslySetInnerHTML={{
+                __html: resumeData.summary,
+              }}
+            />
           </header>
           <h3
             className="text-xl text-blue-700 mb-2"
@@ -92,9 +97,13 @@ const Template7 = () => {
                               />
                             </div>
                             <p className="content">{item.position}</p>
-                            <p className="content hyphens-auto">
-                              {item.description}
-                            </p>
+                            <p
+                              className="content hyphens-auto"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
+
                             <Droppable
                               droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                               type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
@@ -190,7 +199,12 @@ const Template7 = () => {
                             >
                               {item.link}
                             </Link>
-                            <p className="content">{item.description}</p>
+                            <p
+                              className="content"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            />
                             <Droppable
                               droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                               type="PROJECTS_KEY_ACHIEVEMENT"
