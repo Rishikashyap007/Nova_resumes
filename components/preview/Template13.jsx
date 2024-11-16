@@ -70,7 +70,11 @@ const Template13 = () => {
           >
             Professional Summary
           </div>
-          <p>{resumeData.summary}</p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
 
         <div className="mb-5 grid">

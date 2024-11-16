@@ -10,7 +10,7 @@ import Skills from "./Skills";
 import Certification from "./Certification";
 import Image from "next/image";
 import Link from "next/link";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import {
   FaGithub,
   FaLinkedin,
@@ -94,23 +94,7 @@ const Template1 = () => {
   ];
 
   // const sanitizedSummary = DOMPurify.sanitize(resumeData.summary);
-  const sanitizedSummary = DOMPurify.sanitize(resumeData.summary, {
-    USE_PROFILES: { html: true }, // Use standard HTML tags
-    ALLOWED_TAGS: [
-      "b",
-      "i",
-      "em",
-      "strong",
-      "p",
-      "h1",
-      "h2",
-      "ul",
-      "ol",
-      "li",
-      "br",
-    ], // Add more tags if necessary
-    ALLOWED_ATTR: ["style", "class", "id"], // Allow style or custom attributes if required
-  });
+  
   const MenuButton = ({ title, icon, onClick }) => (
     <button
       onClick={onClick}
@@ -290,7 +274,7 @@ const Template1 = () => {
                         className="content break-words"
                         name="summary"
                         dangerouslySetInnerHTML={{
-                          __html: sanitizedSummary,
+                          __html: resumeData.summary,
                         }}
                       />
                       {/* {resumeData.summary} */}

@@ -85,7 +85,11 @@ const Template20 = () => {
               </h2>
             </div>
 
-            <p>{resumeData.summary}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: resumeData.summary,
+              }}
+            />
           </div>
         </div>
         <div class="flex gap-1 items-start mb-10 border-gray-800">

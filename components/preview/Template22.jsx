@@ -88,7 +88,12 @@ const Template22 = () => {
               </h2>
             </div>
             <div class="border-solid border-b-2 border-blue-900 mb-2 mt-2"></div>
-            <p class="text-sm text-black	 tracking-wide	">{resumeData.summary}</p>
+            <p
+              class="text-sm text-black	 tracking-wide	"
+              dangerouslySetInnerHTML={{
+                __html: resumeData.summary,
+              }}
+            />
           </div>
           <div className="p-5">
             <h2

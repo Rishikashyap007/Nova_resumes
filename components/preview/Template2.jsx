@@ -8,7 +8,7 @@ import DateRange from "../utility/DateRange";
 import Language from "./Language";
 import Skills from "./Skills";
 import Certification from "./Certification";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 
 import {
   FaGithub,
@@ -64,17 +64,7 @@ const Template2 = () => {
     { name: "youtube", icon: <FaYoutube /> },
     { name: "website", icon: <CgWebsite /> },
   ];
-  // Sanitize the content using DOMPurify (without <h1>, <h2> tags)
-  const sanitizedSummary = DOMPurify.sanitize(resumeData.summary, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "ul", "ol", "li", "br"], // Exclude h1, h2
-  });
-
-  // Optionally remove heading tags (h1, h2) using a regex replacement
-  const sanitizedWithoutHeadings = sanitizedSummary.replace(
-    /<\/?(h[1-6])>/gi,
-    ""
-  );
+  
   const MenuButton = ({ title, icon, onClick }) => (
     <button
       onClick={onClick}
@@ -91,7 +81,6 @@ const Template2 = () => {
 
     html2pdfModule().from(element).save("resume.pdf");
   };
-  console.log("Resume data >>>>>>>>>>>", resumeData);
   return (
     <div
       id="preview-section"

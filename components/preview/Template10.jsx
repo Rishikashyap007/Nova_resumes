@@ -68,9 +68,12 @@ const Template10 = () => {
           </header>
 
           <section className="mb-5">
-            <p className="text-sm text-gray-500 leading-relaxed">
-              {resumeData.summary}
-            </p>
+            <p
+              className="text-sm text-gray-500 leading-relaxed"
+              dangerouslySetInnerHTML={{
+                __html: resumeData.summary,
+              }}
+            />
           </section>
 
           <section className="mb-5">

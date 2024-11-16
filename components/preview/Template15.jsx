@@ -61,7 +61,11 @@ const Template15 = () => {
           <h2 className="text-xl font-bold mb-4" style={{ color: headerColor }}>
             ABOUT ME
           </h2>
-          <p>{resumeData.summary}</p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
 
         <div className="mb-8">

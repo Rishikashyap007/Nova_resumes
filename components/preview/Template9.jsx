@@ -50,7 +50,12 @@ const Template9 = () => {
           >
             {resumeData.name}
           </h1>
-          <p className="text-sm text-gray-600">{resumeData.summary}</p>
+          <p
+            className="text-sm text-gray-600"
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
         <div className="text-right mb-5 text-sm text-gray-600">
           <p>

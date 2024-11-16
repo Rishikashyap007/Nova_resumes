@@ -284,7 +284,11 @@ const Template12 = () => {
           >
             Snapshot
           </h3>
-          {resumeData.summary}
+          <p
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
           {/* Add more snapshot paragraphs as needed */}
         </div>
 

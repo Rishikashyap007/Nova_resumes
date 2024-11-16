@@ -351,12 +351,18 @@ const ProfilePage = () => {
     }
 
     try {
-      const response = await axios.post('https://api.resumeintellect.com/api/user/file-based-ai', {
-        keyword: 'Rate this resume content in percentage ? and checklist of scope improvements in manner of content and informations',
-        file_location: resume.file_path || "/etc/dean_ai_resume/users/resume_uploads/majid[15_0]-1723818329.pdf",
-      }, {
-        headers: { Authorization: token }
-      });
+      const response = await axios.post(
+        "https://api.resumeintellect.com/api/user/file-based-ai",
+        {
+          keyword:
+            "Rate this resume content in percentage ? and checklist of scope improvements in manner of content and informations",
+          // file_location: resume.file_path || "/etc/dean_ai_resume/users/resume_uploads/majid[15_0]-1723818329.pdf",
+          resume_data: resume.ai_resume_parse_data,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
 
       const { content_acuracy_percentage } = response.data.data;
       setScores(prevScores => ({

@@ -41,7 +41,7 @@ const Template18 = () => {
 
     return (
       <div
-        // id="preview-section"
+        id="preview-section"
         className="max-w-3xl mx-auto p-5 bg-white-500 shadow-md"
       >
         <div class="flex gap-1 items-start border-b-2	mb-10 border-gray-800">
@@ -179,7 +179,11 @@ const Template18 = () => {
                 ABOUT ME
               </h2>
               <div class="border-solid border-b-2 border-gray-800 mb-5"></div>
-              <p>{resumeData.summary}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: resumeData.summary,
+                }}
+              />
             </div>
             <div className="mb-8">
               <h2

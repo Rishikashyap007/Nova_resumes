@@ -57,9 +57,43 @@ export default function Builder({ onClose }) {
 
   useEffect(() => {
     // Extract resumeId from URL
-    const path = window.location.pathname;
-    const id = path.split("/").pop(); // Get the last part of the URL
-    setResumeId(id);
+    if (typeof window !== "undefined") {
+      const path = window.location.pathname;
+      const id = path.split("/").pop(); // Get the last part of the URL
+      setResumeId(id);
+
+      // Fetch resume data from the API using resumeId
+      const fetchResumeData = async () => {
+        const token = localStorage.getItem("token");
+        try {
+          const response = await axios.get(
+            `https://api.resumeintellect.com/api/user/resume-list/${id}`,
+            {
+              headers: { Authorization: token },
+            }
+          );
+          const resumeData = response.data.data;
+          console.log("resumeData>>>>>", resumeData);
+          if (
+            !resumeData ||
+            // !resumeData.file_path ||
+            !resumeData.ai_resume_parse_data
+          ) {
+            console.error("Resume data not found in API response");
+            return;
+          }
+
+          const parsedData = JSON.parse(resumeData.ai_resume_parse_data);
+          setResumeData(parsedData.templateData);
+        } catch (error) {
+          console.error("Error fetching resume data:", error);
+        }
+      };
+
+      if (id) {
+        fetchResumeData();
+      }
+    }
   }, []);
 
   const handleDownloadResume = () => {
@@ -145,7 +179,8 @@ export default function Builder({ onClose }) {
     { label: "Certification", component: <Certification /> },
   ];
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    await handleFinish();
     if (currentSection === sections.length - 1) {
       setIsFinished(true);
     } else {
@@ -153,15 +188,18 @@ export default function Builder({ onClose }) {
     }
   };
 
-  const handleBackToPrevious = () => {
+  const handleBackToPrevious = async () => {
+    await handleFinish();
     setIsFinished(false);
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = async () => {
+    await handleFinish();
     setCurrentSection((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleSectionClick = (index) => {
+  const handleSectionClick = async (index) => {
+    await handleFinish();
     setCurrentSection(index);
   };
 
@@ -203,31 +241,14 @@ export default function Builder({ onClose }) {
     // await saveResumeAPI(resumeData);
     console.log("Resume saved!");
   };
+  console.log("KSC>>ResumeData", resumeData);
   const handleFinish = async () => {
     if (!resumeData) return;
 
     // Map resumeData into the required templateData format
     const templateData = {
       templateData: {
-        name: resumeData.name || "",
-        position: resumeData.position || "",
-        contactInformation: resumeData.contact || "",
-        email: resumeData.email || "",
-        address: resumeData.address || "",
-        profilePicture: resumeData.profilePicture || "",
-        socialMedia:
-          resumeData.socialMedia?.map((media) => ({
-            socialMedia: media.platform || "",
-            link: media.link || "",
-          })) || [],
-        summary: resumeData.summary || "",
-        education:
-          resumeData.education?.map((edu) => ({
-            school: edu.school || "",
-            degree: edu.degree || "",
-            startYear: edu.startYear || "",
-            endYear: edu.endYear || "",
-          })) || [],
+        ...resumeData,
         workExperience:
           resumeData.workExperience?.map((exp) => ({
             company: exp.company || "",
@@ -257,8 +278,6 @@ export default function Builder({ onClose }) {
               skills: skill.skills || [],
             }))
           : [],
-        languages: resumeData.languages || [],
-        certifications: resumeData.certifications || [],
       },
     };
 
@@ -295,6 +314,10 @@ export default function Builder({ onClose }) {
   // const getTargetElement = () => document.getElementById("content-pdf");
   const getTargetElement = () => {
     const targetElement = document.getElementById("preview-section"); //("content-pdf");
+    if (!targetElement) {
+      console.error("Preview section not found.");
+      return null;
+    }
 
     // Apply the additional classes to all <h2> tags and elements with the "pdf-icon" class
     const h2Elements = targetElement.querySelectorAll(".border-b-2");
@@ -334,6 +357,7 @@ export default function Builder({ onClose }) {
   const handleDownload = async () => {
     setLoading(true); // Show loader when download starts
 
+    await handleFinish();
     try {
       const targetElement = await getTargetElement();
       const options = {
@@ -362,8 +386,6 @@ export default function Builder({ onClose }) {
     }
     setLoading(false); // Hide loader
   };
-
-  console.log("Res data>>>>>", resumeData);
 
   return (
     <>

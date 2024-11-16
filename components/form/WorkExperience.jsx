@@ -23,15 +23,12 @@ const WorkExperience = () => {
   const [error, setError] = useState("");
 
   const handleWorkExperience = (value, index, fieldName) => {
+    // console.log("fix for key achivement>>>", value, index, fieldName);
     const newWorkExperience = [...resumeData.workExperience];
     newWorkExperience[index][fieldName] = value;
     setResumeData({ ...resumeData, workExperience: newWorkExperience });
   };
-  // const handleProjects = (value, index, fieldName) => {
-  //   const newProjects = [...resumeData.projects];
-  //   newProjects[index][fieldName] = value;
-  //   setResumeData({ ...resumeData, projects: newProjects });
-  // };
+ 
   const addWorkExperience = () => {
     setResumeData({
       ...resumeData,
@@ -115,7 +112,9 @@ const WorkExperience = () => {
             name="company"
             className="w-full other-input border-black border"
             value={workExperience.company}
-            onChange={((e) => handleWorkExperience(e, index), "company")}
+            onChange={(e) =>
+              handleWorkExperience(e.target.value, index, "company")
+            }
           />
           <label className="mt-2">Job Title</label>
           <input
@@ -124,7 +123,9 @@ const WorkExperience = () => {
             name="position"
             className="w-full other-input border-black border"
             value={workExperience.position}
-            onChange={(e) => handleWorkExperience(e, index, "position")}
+            onChange={(e) =>
+              handleWorkExperience(e.target.value, index, "position")
+            }
           />
           <div className="flex-wrap-gap-2">
             <input

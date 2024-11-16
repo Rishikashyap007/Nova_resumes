@@ -180,7 +180,11 @@ const Template16 = () => {
                 ABOUT ME
               </h2>
               <div class="border-solid border-2 border-sky-500 mb-5"></div>
-              <p>{resumeData.summary}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: resumeData.summary,
+                }}
+              />
             </div>
             <div className="mb-8">
               <h2

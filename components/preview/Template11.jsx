@@ -79,7 +79,11 @@ const Template11 = () => {
               >
                 About Me
               </h2>
-              <p>{resumeData.summary}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: resumeData.summary,
+                }}
+              />
             </div>
             <div className="contact mb-5">
               <ContactInfo

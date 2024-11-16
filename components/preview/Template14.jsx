@@ -88,7 +88,11 @@ const Template14 = () => {
             >
               Profile
             </h3>
-            <p>{resumeData.summary}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: resumeData.summary,
+              }}
+            />
           </div>
 
           <div className="mb-3">

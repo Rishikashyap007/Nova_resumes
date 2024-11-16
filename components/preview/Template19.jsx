@@ -70,7 +70,11 @@ const Template19 = () => {
                 ABOUT ME
               </h2>
               <div class="border-solid border-b-2 border-gray-800 mb-5"></div>
-              <p>{resumeData.summary}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: resumeData.summary,
+                }}
+              />
             </div>
             <div className="mb-8">
               <h2

@@ -72,7 +72,12 @@ const Template24 = () => {
             ABOUT ME
           </h2>
           {/* <div class="border-solid border-b-2 border-cyan-800 mb-5"></div> */}
-          <p class="text-black font-light">{resumeData.summary}</p>
+          <p
+            class="text-black font-light"
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
         <div class="border-solid border-2 border-black mb-5 "></div>
 

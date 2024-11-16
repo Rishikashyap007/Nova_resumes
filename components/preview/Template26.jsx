@@ -76,7 +76,12 @@ const Template26 = () => {
           >
             ABOUT ME
           </h2>
-          <p class="text-black font-light">{resumeData.summary}</p>
+          <p
+            class="text-black font-light"
+            dangerouslySetInnerHTML={{
+              __html: resumeData.summary,
+            }}
+          />
         </div>
         <div className="mb-8">
           <h2
