@@ -7,7 +7,7 @@ const Sidebar1 = ({ onClose }) => {
   const location = router.pathname;
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear the token
+    localStorage.clear();
     router.push('/login2'); // Redirect to login after logout
   };
 

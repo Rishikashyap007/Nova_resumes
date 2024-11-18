@@ -3,10 +3,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Sidebar = ({ onClose }) => {
-  const router = useRouter();  const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear the token
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.clear(); // Clear the storage where token is present
     setIsLoggedIn(false); // Update login state
   };
+
   const getLinkClassName = (path) => {
     return router.pathname === path
       ? "flex items-center p-2 bg-indigo-100 border-b-2 rounded font-semibold text-black"

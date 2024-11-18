@@ -227,10 +227,10 @@ export default function Builder({ onClose }) {
 
   const router = useRouter();
   const { id } = router.query;
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear the token
-    setIsLoggedIn(false); // Update login state
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token"); // Clear the token
+  //   setIsLoggedIn(false); // Update login state
+  // };
   const getLinkClassName = (path) => {
     return router.pathname === path
       ? "flex items-center p-2 bg-slate-900 border-b-2 rounded font-semibold text-white"
@@ -241,7 +241,7 @@ export default function Builder({ onClose }) {
     // await saveResumeAPI(resumeData);
     console.log("Resume saved!");
   };
-  console.log("KSC>>ResumeData", resumeData);
+  console.log(">>>>>ResumeData", resumeData);
   const handleFinish = async () => {
     if (!resumeData) return;
 
