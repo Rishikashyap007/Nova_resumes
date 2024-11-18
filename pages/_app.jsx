@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
     if (isDashboardRoute && !token) {
       // Save the attempted route
       localStorage.setItem("redirectAfterLogin", router.pathname);
-      router.push("/login"); // Redirect to login if accessing a dashboard route without a token
+      router.push("/login2"); // Redirect to login if accessing a dashboard route without a token
     }
   }, [router.pathname]);
   return (
